@@ -25,15 +25,24 @@ jobs:
         mv sdks-master/* ~/theos/sdks/
         rm -rf master.zip sdks-master
 
-    - name: Build Project
+    - name: Find Makefile and Build
       run: |
         export THEOS=~/theos
-        make FINALPACKAGE=1
+        # Makefile dosyasının olduğu dizini bul ve oraya girip derle
+        MAKE_DIR=$(find . -maxdepth 3 -name "Makefile" -exec dirname {} \; | head -n 1)
+        if [ -n "$MAKE_DIR" ]; then
+          cd "$MAKE_DIR"
+          make package FINALPACKAGE=1 || make FINALPACKAGE=1 || make
+        else
+          echo "Makefile bulunamadı!"
+          exit 1
+        fi
 
-    - name: Find and Upload Dylib
+    - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
         name: iOS-Mod-Menu-Output
         path: |
           **/*.dylib
           **/*.deb
+          packages/*.deb
