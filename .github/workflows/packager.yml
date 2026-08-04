@@ -15,12 +15,12 @@ jobs:
       with:
         submodules: recursive
 
-    - name: Setup Theos & SDKs
+    - name: Setup Theos & Patch SDKs
       run: |
         git clone --recursive https://github.com/theos/theos.git ~/theos
         echo "THEOS=~/theos" >> $GITHUB_ENV
         
-        # Var olan boş sdks klasörünü silip güncel SDK'ları yüklüyoruz
+        # SDK klasörünü hazırlayıp güncel SDK'ları indiriyoruz
         rm -rf ~/theos/sdks
         git clone --depth=1 https://github.com/theos/sdks.git ~/theos/sdks
 
@@ -32,7 +32,12 @@ jobs:
         
         if [ -n "$MAKE_DIR" ]; then
           cd "$MAKE_DIR"
-          make package FINALPACKAGE=1 SYSROOT="" || make FINALPACKAGE=1 SYSROOT="" || make SYSROOT=""
+          
+          # Indirilen klasördeki ilk SDK adını otomatik yakalayıp TARGET olarak atar
+          LATEST_SDK=$(ls ~/theos/sdks | grep iPhoneOS | head -n 1 | sed 's/iPhoneOS//' | sed 's/\.sdk//')
+          echo "Kullanılan SDK Sürümü: $LATEST_SDK"
+          
+          make package FINALPACKAGE=1 TARGET=iphone:clang:$LATEST_SDK:14.0 || make FINALPACKAGE=1 TARGET=iphone:clang:$LATEST_SDK:14.0 || make
         else
           echo "Makefile bulunamadı!"
           exit 1
