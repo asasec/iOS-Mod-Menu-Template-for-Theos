@@ -25,18 +25,15 @@ jobs:
         mv sdks-master/* ~/theos/sdks/
         rm -rf master.zip sdks-master
 
-    - name: Build Dylib
+    - name: Build Project
       run: |
         export THEOS=~/theos
-        make || make dylib || true
+        make FINALPACKAGE=1
 
-    - name: Upload Artifact
+    - name: Find and Upload Dylib
       uses: actions/upload-artifact@v4
       with:
         name: iOS-Mod-Menu-Output
         path: |
-          .theos/obj/debug/*.dylib
-          .theos/obj/*.dylib
-          obj/*.dylib
-          *.dylib
-          packages/*.deb
+          **/*.dylib
+          **/*.deb
