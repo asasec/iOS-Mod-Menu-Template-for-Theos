@@ -9,7 +9,7 @@
 <br>
 
 ### Features:
-* Customizable UI
+* Customizable UI 
 * Customizable menu & button image icon
 * 4 types of switches:
   * Offset Patcher Switch
