@@ -19,20 +19,21 @@ jobs:
       run: |
         git clone --recursive https://github.com/theos/theos.git ~/theos
         echo "THEOS=~/theos" >> $GITHUB_ENV
-        mkdir -p ~/theos/sdks
-        curl -LO https://github.com/theos/sdks/archive/master.zip
-        unzip -q master.zip
-        mv sdks-master/* ~/theos/sdks/
-        rm -rf master.zip sdks-master
+        
+        # Güncel SDK'ları doğrudan clone ediyoruz
+        git clone --depth=1 https://github.com/theos/sdks.git ~/theos/sdks
 
     - name: Find Makefile and Build
       run: |
         export THEOS=~/theos
-        # Makefile dosyasının olduğu dizini bul ve oraya girip derle
+        
+        # Makefile içeren dizini bul
         MAKE_DIR=$(find . -maxdepth 3 -name "Makefile" -exec dirname {} \; | head -n 1)
+        
         if [ -n "$MAKE_DIR" ]; then
           cd "$MAKE_DIR"
-          make package FINALPACKAGE=1 || make FINALPACKAGE=1 || make
+          # SYSROOT çakışmasını önlemek için Xcode'un kendi SDK'sını da fallback olarak açıyoruz
+          make package FINALPACKAGE=1 SYSROOT="" || make FINALPACKAGE=1 SYSROOT="" || make SYSROOT=""
         else
           echo "Makefile bulunamadı!"
           exit 1
