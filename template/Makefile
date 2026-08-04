@@ -5,7 +5,7 @@ FINALPACKAGE = 1
 FOR_RELEASE = 1
 
 # 0 to treat warnings as errors, 1 otherwise.
-IGNORE_WARNINGS=0
+IGNORE_WARNINGS=1
 
 # 0 to compile for rootful jailbreaks, 1 otherwise.
 ROOTLESS = 0
