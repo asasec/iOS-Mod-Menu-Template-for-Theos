@@ -17,14 +17,14 @@ jobs:
 
     - name: Setup Theos, SDKs & ldid
       run: |
-        # ldid kurulumu ( Homebrew ile )
+        # ldid aracını kur
         brew install ldid
         
         # Theos kurulumu
         git clone --recursive https://github.com/theos/theos.git ~/theos
         echo "THEOS=~/theos" >> $GITHUB_ENV
         
-        # SDK dizinini hazırlayıp indirme
+        # SDK indir ve yerleştir
         rm -rf ~/theos/sdks
         git clone --depth=1 https://github.com/theos/sdks.git ~/theos/sdks
 
@@ -37,7 +37,6 @@ jobs:
         if [ -n "$MAKE_DIR" ]; then
           cd "$MAKE_DIR"
           
-          # SDK sürümünü otomatik algıla
           LATEST_SDK=$(ls ~/theos/sdks | grep iPhoneOS | head -n 1 | sed 's/iPhoneOS//' | sed 's/\.sdk//')
           echo "Kullanılan SDK Sürümü: $LATEST_SDK"
           
@@ -54,4 +53,3 @@ jobs:
         path: |
           **/*.dylib
           **/*.deb
-          packages/*.deb
