@@ -6,13 +6,13 @@
 void setup() {
 
   // Offset Switch with one patch
-  [switches addOffsetSwitch:NSSENCRYPT("Sınırsız Para")
-    description:NSSENCRYPT("Paran sınırsız OĞLUŞ")
+  [switches addOffsetSwitch:NSSENCRYPT("Herşey Bedava")
+    description:NSSENCRYPT("Paralı paketler bedava OĞLUŞ")
     offsets: {
-      ENCRYPTOFFSET("0x210EC54")
+      ENCRYPTOFFSET("0x210AE70")
     }
     bytes: {
-      ENCRYPTHEX("0xE0478852E001A072C0035FD6")
+      ENCRYPTHEX("0x20008052C0035FD6")
     }
   ];
 
