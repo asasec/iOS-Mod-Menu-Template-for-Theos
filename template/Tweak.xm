@@ -85,7 +85,6 @@ static void didFinishLaunching(CFNotificationCenterRef center, void *observer, C
     }];
 
         [alert addButton: NSSENCRYPT("Anladım, Bro!") actionBlock: ^(void) {
-      [menu showMenu];
     }];
 
     alert.shouldDismissOnTapOutside = NO;
