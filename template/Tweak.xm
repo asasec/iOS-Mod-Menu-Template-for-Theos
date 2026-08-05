@@ -5,16 +5,20 @@
 ***********************************************************/
 void setup() {
 
-  // Offset Switch with one patch
-    [switches addOffsetSwitch:NSSENCRYPT("Herşey Bedava")
+  // Menünün ana kurulum (setup) kısmında framework adını bir kere tanıtıyoruz:
+[menu setFrameworkName:"UnityFramework"];
+
+// Hileyi ve offseti sorunsuz şekilde ekliyoruz:
+  [switches addOffsetSwitch:NSSENCRYPT("Herşey Bedava")
     description:NSSENCRYPT("Paralı paketler bedava OĞLUŞ")
     offsets: {
-      { "UnityFramework", 0x210AE70 }
+      0x210AE70
     }
     bytes: {
-      ENCRYPTHEX("0x20008052C0035FD6")
+      ENCRYPTHEX("20008052C0035FD6")
     }
   ];
+
 
   // Offset switch with multiple patches
   [switches addOffsetSwitch:NSSENCRYPT("One Hit Kill")
