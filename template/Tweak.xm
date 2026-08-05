@@ -84,11 +84,9 @@ static void didFinishLaunching(CFNotificationCenterRef center, void *observer, C
       });
     }];
 
-    [alert addButton: NSSENCRYPT("Anladın mı? Bro!") actionBlock: ^(void) {
-      timer(2) {
-        setupMenu();
-      });
-    }];    
+        [alert addButton: NSSENCRYPT("Anladım, Bro!") actionBlock: ^(void) {
+      [menu showMenu];
+    }];
 
     alert.shouldDismissOnTapOutside = NO;
     alert.customViewColor = [UIColor purpleColor];  
