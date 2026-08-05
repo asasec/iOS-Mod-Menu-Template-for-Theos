@@ -36,8 +36,8 @@ include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = MyModMenu
 
-MyModMenu_CFLAGS = -fobjc-arc
-MyModMenu_CCFLAGS = -std=c++11 -fno-rtti -fno-exceptions -DNDEBUG
+MyModMenu_CFLAGS = -fobjc-arc -Wno-error
+MyModMenu_CCFLAGS = -std=c++11 -fno-rtti -fno-exceptions -DNDEBUG -undefined dynamic_lookup
 
 ifeq ($(IGNORE_WARNINGS),1)
   MyModMenu_CFLAGS += -w
