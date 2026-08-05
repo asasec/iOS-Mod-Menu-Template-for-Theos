@@ -6,10 +6,10 @@
 void setup() {
 
   // Offset Switch with one patch
-  [switches addOffsetSwitch:NSSENCRYPT("Herşey Bedava")
+    [switches addOffsetSwitch:NSSENCRYPT("Herşey Bedava")
     description:NSSENCRYPT("Paralı paketler bedava OĞLUŞ")
     offsets: {
-      ENCRYPTOFFSET("0x210AE70")
+      { "UnityFramework", 0x210AE70 }
     }
     bytes: {
       ENCRYPTHEX("0x20008052C0035FD6")
