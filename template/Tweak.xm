@@ -81,13 +81,13 @@ static void didFinishLaunching(CFNotificationCenterRef center, void *observer, C
       [[UIApplication sharedApplication] openURL: [NSURL URLWithString: NSSENCRYPT("@@SITE@@")]];
       timer(2) {
         setupMenu();
-      });        
+      }
     }];
 
     [alert addButton: NSSENCRYPT("Anladın mı? Bro!") actionBlock: ^(void) {
       timer(2) {
         setupMenu();
-      });
+      }
     }];    
 
     alert.shouldDismissOnTapOutside = NO;
