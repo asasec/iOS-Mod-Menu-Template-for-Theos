@@ -5,31 +5,14 @@
 ***********************************************************/
 void setup() {
 
-  //patching offsets directly, without switch
-  patchOffset(ENCRYPTOFFSET("0x1002DB3C8"), ENCRYPTHEX("0xC0035FD6"));
-  patchOffset(ENCRYPTOFFSET("0x10020D2D4"), ENCRYPTHEX("0x00008052C0035FD6"));
-
-  // You can write as many bytes as you want to an offset
-  patchOffset(ENCRYPTOFFSET("0x10020D3A8"), ENCRYPTHEX("0x00F0271E0008201EC0035FD6"));
-  // or  
-  patchOffset(ENCRYPTOFFSET("0x10020D3A8"), ENCRYPTHEX("00F0271E0008201EC0035FD6"));
-  // spaces are fine too
-  patchOffset(ENCRYPTOFFSET("0x10020D3A8"), ENCRYPTHEX("00 F0 27 1E 00 08 20 1E C0 03 5F D6"));
-
-
-  // Empty switch - usefull with hooking
-  [switches addSwitch:NSSENCRYPT("Masskill")
-    description:NSSENCRYPT("Teleport all enemies to you without them knowing")
-  ];
-
   // Offset Switch with one patch
-  [switches addOffsetSwitch:NSSENCRYPT("God Mode")
-    description:NSSENCRYPT("You can't die")
+  [switches addOffsetSwitch:NSSENCRYPT("Sınırsız Para")
+    description:NSSENCRYPT("Paran sınırsız OĞLUŞ")
     offsets: {
-      ENCRYPTOFFSET("0x2100230")
+      ENCRYPTOFFSET("0x210EC54")
     }
     bytes: {
-      ENCRYPTHEX("0x20008052C0035FD6")
+      ENCRYPTHEX("0xE0478852E001A072C0035FD6")
     }
   ];
 
