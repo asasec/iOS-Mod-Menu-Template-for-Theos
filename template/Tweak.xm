@@ -17,9 +17,14 @@ void setup() {
   patchOffset(ENCRYPTOFFSET("0x10020D3A8"), ENCRYPTHEX("00 F0 27 1E 00 08 20 1E C0 03 5F D6"));
 
 
+  // Empty switch - usefull with hooking
+  [switches addSwitch:NSSENCRYPT("Masskill")
+    description:NSSENCRYPT("Teleport all enemies to you without them knowing")
+  ];
+
   // Offset Switch with one patch
-  [switches addOffsetSwitch:NSSENCRYPT("Ölümsüzlük")
-    description:NSSENCRYPT("Bunu açarsan hasar almaz ve boğulmazsın.")
+  [switches addOffsetSwitch:NSSENCRYPT("God Mode")
+    description:NSSENCRYPT("You can't die")
     offsets: {
       ENCRYPTOFFSET("0x2100230")
     }
@@ -27,7 +32,37 @@ void setup() {
       ENCRYPTHEX("0x20008052C0035FD6")
     }
   ];
+
+  // Offset switch with multiple patches
+  [switches addOffsetSwitch:NSSENCRYPT("One Hit Kill")
+    description:NSSENCRYPT("Enemy will die instantly")
+    offsets: {
+      ENCRYPTOFFSET("0x1001BB2C0"),
+      ENCRYPTOFFSET("0x1002CB3B0"),
+      ENCRYPTOFFSET("0x1002CB3B8")
+    }
+    bytes: {
+      ENCRYPTHEX("0x00E0BF12C0035FD6"),
+      ENCRYPTHEX("0xC0035FD6"),
+      ENCRYPTHEX("0x00F0271E0008201EC0035FD6")
+    }
+  ];
+
+  // Textfield Switch - used in hooking
+  [switches addTextfieldSwitch:NSSENCRYPT("Custom Gold")
+    description:NSSENCRYPT("Here you can enter your own gold amount")
+    inputBorderColor:UIColorFromHex(0xBD0000)
+  ];
+
+  // Slider Switch - used in hooking
+  [switches addSliderSwitch:NSSENCRYPT("Custom Move Speed")
+    description:NSSENCRYPT("Set your custom move speed")
+    minimumValue:0
+    maximumValue:10
+    sliderColor:UIColorFromHex(0xBD0000)
+  ];
 }
+
 
 /**********************************************************************************************************
      You can customize the menu here
@@ -49,10 +84,10 @@ void setupMenu() {
   [menu setFrameworkName:NULL];
 
   menu = [[Menu alloc]  
-            initWithTitle:NSSENCRYPT("BOMBOMA ÖZEL - Mod Menu")
+            initWithTitle:NSSENCRYPT("@@APPNAME@@ - Mod Menu")
             titleColor:[UIColor whiteColor]
             titleFont:NSSENCRYPT("Copperplate-Bold")
-            credits:NSSENCRYPT("Naber Bombom Ayıcık Emjan Ümidizi Babo Men \n\nİyi Eğlenceler!")
+            credits:NSSENCRYPT("This Mod Menu has been made by @@USER@@, do not share this without proper credits and my permission. \n\nEnjoy!")
             headerColor:UIColorFromHex(0xBD0000)
             switchOffColor:[UIColor darkGrayColor]
             switchOnColor:UIColorFromHex(0x00ADF2)
@@ -73,27 +108,29 @@ void setupMenu() {
 
 // If the menu button doesn't show up; Change the timer to a bigger amount.
 static void didFinishLaunching(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef info) {
-  timer(15) {
+  timer(5) {
     SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
 
     // Website link, remove it if you don't need it.
-    [alert addButton: NSSENCRYPT("Ziyaret Et!") actionBlock: ^(void) {
+    [alert addButton: NSSENCRYPT("Visit Me!") actionBlock: ^(void) {
       [[UIApplication sharedApplication] openURL: [NSURL URLWithString: NSSENCRYPT("@@SITE@@")]];
       timer(2) {
         setupMenu();
-      });
+      });        
     }];
 
-        [alert addButton: NSSENCRYPT("Anladım, Bro!") actionBlock: ^(void) {
-         setupMenu();
-    }];
+    [alert addButton: NSSENCRYPT("Thankyou, understood.") actionBlock: ^(void) {
+      timer(2) {
+        setupMenu();
+      });
+    }];    
 
     alert.shouldDismissOnTapOutside = NO;
     alert.customViewColor = [UIColor purpleColor];  
     alert.showAnimationType = SCLAlertViewShowAnimationSlideInFromCenter;   
     
     [alert showSuccess: nil
-            subTitle:NSSENCRYPT("Naber Bombom Ayıcık Emjan Ümidizi Babo Men \n\nİyi Eğlenceler!") 
+            subTitle:NSSENCRYPT("@@APPNAME@@ - Mod Menu \n\nThis Mod Menu has been made by @@USER@@, do not share this without proper credits and my permission. \n\nEnjoy!") 
               closeButtonTitle:nil
                 duration:99999999.0f];
   });
