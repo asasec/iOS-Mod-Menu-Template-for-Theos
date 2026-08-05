@@ -73,7 +73,7 @@ void setupMenu() {
 
 // If the menu button doesn't show up; Change the timer to a bigger amount.
 static void didFinishLaunching(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef info) {
-  timer(5) {
+  timer(15) {
     SCLAlertView *alert = [[SCLAlertView alloc] initWithNewWindow];
 
     // Website link, remove it if you don't need it.
@@ -85,6 +85,7 @@ static void didFinishLaunching(CFNotificationCenterRef center, void *observer, C
     }];
 
         [alert addButton: NSSENCRYPT("Anladım, Bro!") actionBlock: ^(void) {
+         setupMenu();
     }];
 
     alert.shouldDismissOnTapOutside = NO;
